@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Pie Chart</title>
+    </head>
+    <body>
+        <canvas width="1000" height="1000"></canvas>
+    </body>
+
+    <script>
+        const pie1 = [ //information for the pie1
+            {name: "Satisfied", count: 1027, color: "lightblue"},
+            {name: "Neutral", count: 463, color: "lightgreen"},
+            {name: "Unsatisfied", count: 510, color: "pink"},
+            {name: "No comment", count: 102, color: "silver"}
+            ]
+
+        const pie2 = [ //information for the pie2
+            {name: "Very Satidfied", count: 63, color: "red"},
+            {name: "Satisfied", count: 104, color: "lightblue"},
+            {name: "Neutral", count: 56, color: "lightgreen"},
+            {name: "Unsatisfied", count: 51, color: "pink"},
+            {name: "Very Unsatisfied", count: 26, color: "purple"},
+            {name: "No comment", count: 18, color: "silver"}
+            ]
+
+        let cx = document.querySelector("canvas").getContext("2d");
+        let currentAngle = -0.5 * Math.PI;//set the start angle, which is the positive way of y-axis
+        let total1 = pie1.reduce((sum,{count}) => sum + count, 0) // calculate the whole number of pie1, sum += each one's count from 0
+        let total2 = pie2.reduce((sum,{count}) => sum + count, 0) // calculate the whole number of pie2, sum += each one's count from 0
+
+        for(let i=0 ; i<4; i++ )//it has 4 categories
+        {
+            let sliceAngle = (pie1[i].count/total1)*2*Math.PI; //get each slice's angle for the whole circle
+            cx.beginPath();//begin the path
+            cx.arc(200,200,100, currentAngle, currentAngle+sliceAngle);//draw the slice with the position 200,200, redius 100 and the angle currentAngle+sliceAngle
+            currentAngle += sliceAngle; //each time it add a slice angle
+            cx.lineTo(200,200); //end to the center
+            cx.fillStyle = pie1[i].color; //fill the color
+            if ((currentAngle-sliceAngle/2) < 0.5*Math.PI) //if it is the right half
+            {
+                cx.fillText (pie1[i].name, 200+130*Math.cos(currentAngle-sliceAngle/2), 200+140*Math.sin(currentAngle-sliceAngle/2)); //stat the word form the x=center+length*cos(center anglr of the slice), y=center+length*sin(center angle of the slice)
+            }
+            else
+            {
+                cx.fillText (pie1[i].name, 200+180*Math.cos(currentAngle-sliceAngle/2), 200+140*Math.sin(currentAngle-sliceAngle/2));//stat the word form the x=center+length*cos(center anglr of the slice), y=center+length*sin(center angle of the slice)
+            }
+            cx.fill();//fill
+        }
+
+
+        currentAngle = -0.5 * Math.PI;//set the start angle, which is the positive way of y-axis
+        for(let i=0 ; i<46; i++ )//it has 6 categories
+        {
+            let sliceAngle = (pie2[i].count/total2)*2*Math.PI; //get each slice's angle for the whole circle
+            cx.beginPath();//begin the path
+            cx.arc(600,200,100, currentAngle, currentAngle+sliceAngle);//draw the slice with the position 600,200, redius 100 and the angle currentAngle+sliceAngle
+            currentAngle += sliceAngle; //each time it add a slice angle
+            cx.lineTo(600,200); //end to the center
+            cx.fillStyle = pie2[i].color; //fill the color
+            if ((currentAngle-sliceAngle/2) < 0.5*Math.PI) //if it is the right half
+            {
+                cx.fillText (pie2[i].name, 600+130*Math.cos(currentAngle-sliceAngle/2), 200+140*Math.sin(currentAngle-sliceAngle/2)); //stat the word form the x=center+length*cos(center anglr of the slice), y=center+length*sin(center angle of the slice)
+            }
+            else
+            {
+                cx.fillText (pie2[i].name, 600+180*Math.cos(currentAngle-sliceAngle/2), 200+140*Math.sin(currentAngle-sliceAngle/2));//stat the word form the x=center+length*cos(center anglr of the slice), y=center+length*sin(center angle of the slice)
+            }
+            cx.fill();//fill
+        }
+    </script>
+</html>

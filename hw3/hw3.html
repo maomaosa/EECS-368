@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            Yuyang's Tap Page
+        </title>
+    </head>
+    <body>
+        <p class="Title">
+            <h1>
+                Yuyang's Tap Page
+            </h1>
+        </p>
+
+        <tab-panel>
+            <div data-tabname="one">Tab one</div>
+            <div data-tabname="two">Tab two</div>
+            <div data-tabname="three">Tab three</div>
+        </tab-panel>
+
+        <script>
+            function asTabs(node) { // this function will create taps as the nums of the node get from the document
+                let length = node.children.length
+
+                for (let i = 0; i < length; i++) // it will loops for the length of initial node's childen's length
+                {
+                    node.querySelectorAll("div")[i].setAttribute("style", "display:none");// hiden all the text
+                    let tempbutton = document.createElement("button"); // create button elements
+                    tempbutton.textContent = node.querySelectorAll("div")[i].getAttribute("data-tabname"); // give the name of the Tab button
+                    tempbutton.addEventListener("click", events); // running the function while click the bottoms
+                    node.insertBefore(tempbutton, document.querySelector("div")); //store all the buttons
+                }
+
+            }
+
+            function events() {
+                initialize(document.querySelector("tab-panel")); // clean all the text and the color of the button
+                if(this.textContent == "one") //while clicking button one
+                {
+                    document.querySelector("tab-panel").querySelectorAll("div")[0].setAttribute("style", "display:"); //display text Tap one
+                    this.setAttribute('style', 'background-color:green'); //change button one to green
+                }
+                else if(this.textContent == "two") //while clicking button two
+                {
+                    document.querySelector("tab-panel").querySelectorAll("div")[1].setAttribute("style", "display:");//display text Tap two
+                    this.setAttribute('style', 'background-color:green');//change button two to green
+                }
+                else  //while clicking button three
+                {
+                    document.querySelector("tab-panel").querySelectorAll("div")[2].setAttribute("style", "display:");//display text Tap three
+                    this.setAttribute('style', 'background-color:green');//change button three to green
+                }
+                
+            }
+
+            let initialize = (node) => {
+                for (let i = 0 ;  i < 3; i++) // it will loops for the length 3
+                {
+                    node.querySelectorAll("div")[i].setAttribute("style", "display:none"); // hiden all the text
+                    document.getElementsByTagName("button")[i].setAttribute('style', 'background-color:'); // set the color of all bottons as none
+                }
+                
+            }
+
+            asTabs(document.querySelector("tab-panel"));
+        </script>
+    </body>
+</html>

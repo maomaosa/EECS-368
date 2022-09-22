@@ -1,0 +1,2 @@
+scalarproduct :: Num a => [a] -> [a] -> a
+scalarproduct xs ys = sum [ x * y | (x,y) <- zip xs ys] -- zip the list xs and ys, get a new list with paired nums, return sum of all the product of each paired num
